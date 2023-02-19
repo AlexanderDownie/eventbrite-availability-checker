@@ -1,0 +1,19 @@
+{
+  "name": "eventbrite-availability-checker",
+  "version": "1.0.0",
+  "description": "Check Eventbrite for availability of tickets and send a text message when they become available.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "Alexander Downie",
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "cli-color": "^2.0.3",
+    "dotenv": "^16.0.3",
+    "puppeteer": "^19.7.1",
+    "twilio": "^4.7.2"
+  }
+}
