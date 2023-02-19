@@ -2,7 +2,7 @@
 Check Eventbrite for availability of tickets and send a text message when they become available.
 
 ### Note
-This only works for [Eventbrite.co.uk](https://eventbrite.co.uk "Eventbrite.co.uk") events. Text alerts are send using [Twilio](https://www.twilio.com/ "Twilio"),  leave any of the API credentials empty in the config file (.env) to disable this feature.
+This only works for [Eventbrite.co.uk](https://eventbrite.co.uk "Eventbrite.co.uk") events. Text alerts are sent using [Twilio](https://www.twilio.com/ "Twilio"),  leave any of the API credentials empty in the config file (.env) to disable this feature.
 
 ## Getting started
 1. Download the repo, navigate into the directory with the terminal and install the dependancies:
