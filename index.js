@@ -97,7 +97,8 @@ async function getTicketStatuses() {
 
     //Start browser
     const browser = await puppeteer.launch({
-        headless: true
+        headless: true,
+        args:['--no-sandbox']
     });
 
     //Open new page
