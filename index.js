@@ -40,14 +40,14 @@ function printTicketStatus(tickets) {
         let statusColour = clc.green;
 
         //Set colour based on status
-        switch(ticket.status){
-            case "Sold Out":
+        switch(ticket.status.toLowerCase()){
+            case "sold out":
                 statusColour = clc.red;
                 break;
-            case "Waitlist":
+            case "waitlist":
                 statusColour = clc.yellow;
                 break;
-            case "On Sale":
+            case "on sale":
             default:
                 statusColour = clc.green;
                 break;
@@ -90,6 +90,7 @@ async function getTicketStatuses() {
     let tickets = [];
     let eventName = "Event";
     let desiredTicketAvailable = false;
+    let anyTicketAvailable = false;
     
     //Console log
     console.log(new Date().toUTCString());
@@ -152,7 +153,15 @@ async function getTicketStatuses() {
                         ticketStatus = "Sold Out";
                     }
                 });
+
+                //A ticket is available is on sale
+                if(ticketStatus === "On Sale"){
+                    anyTicketAvailable = true;
+                }
             }
+        } else {
+            //A ticket is available is on sale
+            anyTicketAvailable = true;
         }
 
         //Add ticket to array
@@ -174,7 +183,7 @@ async function getTicketStatuses() {
     if(process.env.TICKET_NAME !== "" && desiredTicketAvailable){
         //Send text message
         sendTextMessage("TICKETS AVAILABLE: " + process.env.TICKET_NAME + " are available for " + eventName + "!");
-    } else if(process.env.TICKET_NAME === "" && tickets.length > 0){
+    } else if(process.env.TICKET_NAME === "" && tickets.length > 0 && anyTicketAvailable){
         //Send text message
         sendTextMessage("TICKETS AVAILABLE: " + eventName + " has tickets available!");
     }
