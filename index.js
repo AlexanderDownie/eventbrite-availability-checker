@@ -142,6 +142,7 @@ async function getTicketStatuses() {
 
             //Uses card structure
             if($(el).find(".eds-card").length > 0){
+                console.log("Using card structure");
                 ticketTitle = $(el).find(".eds-card .ticket-display-card-content-full-size__ticket-name").text();
 
                 //Set default status
@@ -159,7 +160,7 @@ async function getTicketStatuses() {
                     anyTicketAvailable = true;
                 }
             }
-        } else {
+        } else if (ticketStatus !== "Sold out") {
             //A ticket is available is on sale
             anyTicketAvailable = true;
         }
