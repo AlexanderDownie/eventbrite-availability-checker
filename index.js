@@ -11,8 +11,8 @@ let useTwilio = process.env.NOTIFY_NUMBER !== "" && process.env.TWILIO_ACCOUNT_S
 //Constants
 const eventbrite_base_url = "https://www.eventbrite.co.uk/checkout-external?eid=";
 
-//Last text message (stops duplicate messages)
-let lastTextMessage = "";
+//When the last text message (stops duplicate messages)
+let lastTextMessageTimestamp = 0;
 
 //Twilio client
 let twilioClient;
@@ -71,8 +71,15 @@ function sendTextMessage(message) {
     //Skip if Twilio is not enabled
     if(!useTwilio) return;
 
-    //Skip to stop duplicate messages
-    if(lastTextMessage === message) return;
+    //Skip if too soon since last text message
+    const now = new Date().getTime();
+    if(process.env.MIN_TEXT_INTERVAL !== 0 && lastTextMessageTimestamp + process.env.MIN_TEXT_INTERVAL > now){
+        console.log("Skipping text message as too soon since last text message...\n");
+        return;
+    };
+
+    //Console log
+    console.log("Sending text message.../n");
 
     //Send text message
     twilioClient.messages.create({
@@ -81,8 +88,8 @@ function sendTextMessage(message) {
         from: process.env.TWILIO_FROM_NUMBER, // From a valid Twilio number
     });
 
-    //Set last text message
-    lastTextMessage = message;
+    //Update last text message timestamp
+    lastTextMessageTimestamp = now;
 }
 
 //Get ticket statuses
